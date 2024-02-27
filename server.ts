@@ -30,6 +30,6 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 app.use('/', [accoutRouter, paymentRouter])
 
-app.listen(8000, () => console.log("listening at 8000"))
+app.listen(3000, '0.0.0.0', () => console.log("listening at 8000"))
 
 export default app
