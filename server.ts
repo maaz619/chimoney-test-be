@@ -2,7 +2,8 @@ import express, { NextFunction, Request, Response } from "express";
 import cookieParser from "cookie-parser"
 import accoutRouter from "./routes/account.route"
 import paymentRouter from "./routes/payment.route"
-
+import { config } from "dotenv";
+config()
 
 const app = express()
 
@@ -30,6 +31,6 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 app.use('/', [accoutRouter, paymentRouter])
 
-app.listen(8000, () => console.log("listening at 8000"))
+app.listen(process.env.PORT || 5000, () => console.log("listening at 8000"))
 
 export default app
