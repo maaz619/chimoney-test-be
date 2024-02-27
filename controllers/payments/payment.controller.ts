@@ -34,8 +34,8 @@ const requestPayment = async (req: Request, res: Response, next: NextFunction) =
 
 const sendMoneyWithEmail = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { subId, valueInUSD, receiverEmail, meta } = req.body
-        const initSend = await fetch(`${CHIMONEY_API_BASE_URL}payment/chimoney`, {
+        const { subId, amount, payerEmail } = req.body
+        const initSend = await fetch(`${CHIMONEY_API_BASE_URL}payouts/chimoney`, {
             method: "POST",
             headers: {
                 accept: 'application/json',
@@ -43,15 +43,27 @@ const sendMoneyWithEmail = async (req: Request, res: Response, next: NextFunctio
                 'X-API-KEY': API_KEY
             },
             body: JSON.stringify({
-                subId,
-                valueInUSD,
-                receiverEmail,
+                subAccount: subId,
+                chimoneys: [
+                    {
+                        email: payerEmail,
+                        valueInUSD: amount
+                    }
+                ]
             })
         })
         const result = await initSend.json()
-    } catch (error) {
+        console.log(result)
+        if (result.status !== "success")
+            return res.status(400).json({
+                status: "failed",
+                message: "payment failed",
+            })
+        res.status(200).json(result)
 
+    } catch (error) {
+        res.json(error + " here")
     }
 }
 
-export { requestPayment }
+export { requestPayment, sendMoneyWithEmail }

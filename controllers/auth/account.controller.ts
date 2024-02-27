@@ -4,7 +4,6 @@ import { API_KEY, CHIMONEY_API_BASE_URL, client } from "../../utils"
 const getWalletBalance = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { subId } = req.body
-        console.log(subId)
         const response = await fetch(`${CHIMONEY_API_BASE_URL}wallets/list`, {
             method: "POST",
             headers: {
@@ -15,7 +14,6 @@ const getWalletBalance = async (req: Request, res: Response, next: NextFunction)
             body: JSON.stringify({ subAccount: subId })
         })
         const result = await response.json()
-        console.log(result)
         if (response.status === 200)
             res.status(200).json({ result })
     } catch (error) {
