@@ -44,7 +44,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body
         const cookieOptions = {
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             sameSite: true,
         }
