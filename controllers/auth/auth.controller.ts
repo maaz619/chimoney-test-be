@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express"
+import { CookieOptions, NextFunction, Request, Response } from "express"
 import { API_KEY, CHIMONEY_API_BASE_URL, client } from "../../utils"
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
@@ -43,9 +43,10 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body
-        const cookieOptions = {
-            httpOnly: false,
+        const cookieOptions: CookieOptions = {
+            httpOnly: true,
             secure: true,
+            sameSite: "none"
         }
         const { data, error } = await client.auth.signInWithPassword({
             email: email,
