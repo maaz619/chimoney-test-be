@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 const base_uri = process.env.NODE_ENV === "prod" ? "https://chimoney-test-fe.vercel.app" : "http://localhost:3000"
-
+console.log(base_uri)
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', base_uri);
     res.header('Access-Control-Allow-Methods', 'GET, POST');
