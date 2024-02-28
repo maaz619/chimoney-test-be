@@ -46,7 +46,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         const cookieOptions = {
             httpOnly: false,
             secure: true,
-            sameSite: true,
         }
         const { data, error } = await client.auth.signInWithPassword({
             email: email,
